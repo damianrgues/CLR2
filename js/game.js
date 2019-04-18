@@ -5,7 +5,8 @@ function Game (canvas) {
   this.enemies = [];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
-  this.timeRemaining=30;
+  this.timeRemaining=3;
+  this.gameOver = false
 
 };
 
@@ -14,6 +15,13 @@ function Game (canvas) {
 
 Game.prototype.startLoop = function () {
   this.player = new Player(this.canvas);
+  const timerDisplay = document.getElementById('timer');
+    timerDisplay.innerHTML = this.timeRemaining;
+  setInterval(()=>{
+    this.timeRemaining -= 1;
+    const timerDisplay = document.getElementById('timer');
+    timerDisplay.innerHTML = this.timeRemaining;
+  },1000)
 
   const loop = () => {
 
@@ -26,11 +34,14 @@ Game.prototype.startLoop = function () {
   this.updateCanvas();
   this.drawCanvas();
   this.checkCollisions();
+  if(this.timeRemaining < 1){
+    this.gameOver = true
+    this.buildGameOverScreen();
+  }
   if (this.gameOver === false){
    window.requestAnimationFrame(loop);
   }
   //console.log(this.player.direction);
-  window.requestAnimationFrame(loop);
   }
 
   window.requestAnimationFrame(loop);
@@ -65,7 +76,7 @@ Game.prototype.checkCollisions = function () {
 
       console.log(this.player.lives)
       if (this.player.lives === 0){
-        this.gameOver === true;
+        this.gameOver = true;
         this.buildGameOverScreen();
      }
     }
@@ -78,9 +89,6 @@ Game.prototype.checkCollisions = function () {
 Game.prototype.setGameOverCallback = function (buildGameOverScreen) { // calling back the function bc we dont have access to it from another script since we dont use global variables
   this.buildGameOverScreen = buildGameOverScreen;
 }
-
-
-
 
 
 

@@ -56,29 +56,16 @@
 	        game.player.setYDirection (1) ;
 	      break;
 	    } 
-	    })
+			})
+		}
 	
 		// we select the <section> that will contain our timer
-    const timerDisplay = document.getElementById('timer');
+    
 
 
     
     // we create a function that will subtract from our game.timeRemaining 
-    function timeTracker() {
-
-				console.log("time works");
-        game.timeRemaining--;
-        timerDisplay. innerHTML = game.timeRemaining;
-        return game.timeRemaining;
-    }
-
-    // we run our above function so that it subtracts from our game.timeRemaining every second
-    setInterval(timeTracker, 1000);
-	   
-	
-		}
   
-	
     
 	  function buildGameOverScreen() {
 	   const gameOverScreen = buildDom (`
