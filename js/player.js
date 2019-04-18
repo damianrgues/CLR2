@@ -2,7 +2,8 @@
 	
 	function Player (canvas) {
 	  this.lives = 3;
-	  this.size = 150;
+		this.height = 141;
+		this.width = 60;
 	  this.canvas = canvas;
 	  this.x = 50;
 	  this.y = 100;
@@ -19,7 +20,7 @@
 	
 	Player.prototype.draw = function () {
 	  console.log("drawing");
-	  this.ctx.drawImage(this.image,this.x,this.y, this.size,this.size );
+	  this.ctx.drawImage(this.image,this.x-this.width/2,this.y-this.height/2,this.width,this.height);
 	
 	
 	}
@@ -82,10 +83,10 @@
 	}
 	
 	Player.prototype.checkCollisionWithEnemy = function (enemy) {
-	  const collisionRight = this.x + this.size/2 > enemy.x - enemy.size/2;
-	  const collisionLeft = this.x - this.size/2 < enemy.x + enemy.size/2;
-	  const collisionTop = this.y - this.size/2 < enemy.y + enemy.size/2;
-	  const collisionBottom = this.y + this.size/2 > enemy.y + enemy.size/2;
+	  const collisionRight = this.x + this.width/2 > enemy.x - enemy.size/2;
+	  const collisionLeft = this.x - this.width/2 < enemy.x + enemy.size/2;
+	  const collisionTop = this.y - this.height/2 < enemy.y + enemy.size/2;
+	  const collisionBottom = this.y + this.height/2 > enemy.y - enemy.size/2;
 	
 	  return collisionTop && collisionLeft && collisionBottom && collisionRight; // will return either true or false 
 	}

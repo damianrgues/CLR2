@@ -12,7 +12,7 @@ function Enemy (canvas, y) {
 
 Enemy.prototype.draw = function () {
 
-this.ctx.drawImage(this.image,this.x,this.y, this.size,this.size )
+this.ctx.drawImage(this.image,this.x-this.size/2,this.y-this.size/2, this.size,this.size )
 }
 
 Enemy.prototype.update = function () {

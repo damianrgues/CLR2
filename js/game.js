@@ -5,7 +5,12 @@ function Game (canvas) {
   this.enemies = [];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
+  this.timeLeft= 30;
+
 };
+
+
+
 
 Game.prototype.startLoop = function () {
   this.player = new Player(this.canvas);

@@ -23,7 +23,8 @@
 	  function buildGameScreen() {
 	    console.log('game screen');
 	   const gameScreen = buildDom(`
-	   <section class="game-container">
+     <section class="game-container">
+     <section id="timer"></section>
 	    <canvas id="canvas"></canvas>
 	   </section>
 	   `)
@@ -61,7 +62,10 @@
 	   //setTimeout (buildGameOverScreen, 3000); // to test if the screens are connected 
 	
 	  }
-	
+  
+    
+
+    
 	  function buildGameOverScreen() {
 	   const gameOverScreen = buildDom (`
 	   <section>
