@@ -12,7 +12,8 @@
 	  this.xDirection = 0;
 	  this.yDirection = 0;
 	  this.image = new Image();
-	  this.image.src = "../img/Person_def.png";
+		this.image.src = "../img/Person_def.png";
+		
 	
 	}
 	

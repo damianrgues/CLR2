@@ -5,7 +5,7 @@ function Game (canvas) {
   this.enemies = [];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
-  this.timeLeft= 30;
+  this.timeRemaining=30;
 
 };
 
@@ -17,7 +17,7 @@ Game.prototype.startLoop = function () {
 
   const loop = () => {
 
-  if (Math.random() > 0.98) { // setting the probability  to 3% that a new enemy is created 
+  if (Math.random() > 0.99) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.enemies.push(new Enemy(this.canvas, randomNumber))
   }
@@ -59,8 +59,10 @@ Game.prototype.checkCollisions = function () {
   this.enemies.forEach( (enemy, index) => {
     const isColliding = this.player.checkCollisionWithEnemy(enemy);
     if (isColliding) {
+      this.timeRemaining -= 2;
       this.enemies.splice(index, 1)
       this.player.setLives();
+
       console.log(this.player.lives)
       if (this.player.lives === 0){
         this.gameOver === true;
@@ -71,6 +73,7 @@ Game.prototype.checkCollisions = function () {
   //this.player.checkCollisionWithScreen();
   //this.enemies.checkInScreen(); // to delete enemy after they exit the screen
 }
+
 
 Game.prototype.setGameOverCallback = function (buildGameOverScreen) { // calling back the function bc we dont have access to it from another script since we dont use global variables
   this.buildGameOverScreen = buildGameOverScreen;
