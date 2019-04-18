@@ -78,8 +78,7 @@
 	
 		}
   
-    
-
+	
     
 	  function buildGameOverScreen() {
 	   const gameOverScreen = buildDom (`
