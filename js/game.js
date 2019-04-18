@@ -12,7 +12,7 @@ Game.prototype.startLoop = function () {
 
   const loop = () => {
 
-  if (Math.random() > 0.97) { // setting the probability  to 3% that a new enemy is created 
+  if (Math.random() > 0.98) { // setting the probability  to 3% that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.enemies.push(new Enemy(this.canvas, randomNumber))
   }
