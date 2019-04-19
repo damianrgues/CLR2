@@ -3,7 +3,6 @@
 function Game (canvas) {
   this.player = null;
   this.enemies = [];
-  this.goal=[];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
   this.timeRemaining=30;
@@ -97,7 +96,20 @@ Game.prototype.checkCollisions = function () {
      }
     }
   })
+  
+  if(this.meta){
+    const isCollidingGoal = this.player.checkCollisionWithGoal(this.meta);
+    if (isCollidingGoal) {
+      this.gameOver = true;
+      this.buildGameWinScreen() 
+    }
+  }
+  
+  
   //this.player.checkCollisionWithScreen();
+ 
+ 
+ 
   //this.enemies.checkInScreen(); // to delete enemy after they exit the screen
 }
 
@@ -113,6 +125,11 @@ Game.prototype.createMeta = function () {
 
 Game.prototype.setGameOverCallback = function (buildGameOverScreen) { // calling back the function bc we dont have access to it from another script since we dont use global variables
   this.buildGameOverScreen = buildGameOverScreen;
+}
+
+
+Game.prototype.setWinCallback = function (buildWinScreen) { // calling back the function bc we dont have access to it from another script since we dont use global variables
+  this.buildGameWinScreen = buildWinScreen;
 }
 
 

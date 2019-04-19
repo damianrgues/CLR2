@@ -40,7 +40,8 @@
 	
 	   const game = new Game(canvasElement);
 	   game.startLoop();
-	   game.setGameOverCallback(buildGameOverScreen);
+		 game.setGameOverCallback(buildGameOverScreen);
+		 game.setWinCallback(buildGameWinScreen)
 	
 	   document.addEventListener("keydown", function(event){
 	    switch (event.keyCode){
@@ -85,10 +86,10 @@
 
 
     
-	  function buildGameOverScreen() {
-	   const gameOverScreen = buildDom (`
+	  function buildGameWinScreen() {
+	   const winScreen = buildDom (`
 	   <section>
-	    <h1>Game Over</h1>
+	    <h1>You win! </h1>
 	    <button class="restart-button">Restart</button>
 	   </section>
 	   `)
