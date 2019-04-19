@@ -22,10 +22,11 @@
 	
 	  function buildGameScreen() {
 	    console.log('game screen');
-	   const gameScreen = buildDom(`
+		 const gameScreen = buildDom(`
+		 
+		 <section id="timer"></section>
      <section class="game-container">
-     <section id="timer"></section>
-	    <canvas id="canvas"></canvas>
+     <canvas id="canvas"></canvas>
 	   </section>
 	   `)
 	   const gameContainer = document.querySelector('.game-container');
@@ -50,7 +51,7 @@
 	        game.player.setYDirection(-1);
 	      break;
 	      case 39:
-	        game.player.setXDirection ( 1);
+	        game.player.setXDirection (1);
 	      break;
 	      case 40:
 	        game.player.setYDirection (1) ;
@@ -58,6 +59,8 @@
 	    } 
 			})
 		}
+
+
 	
 		// we select the <section> that will contain our timer
     
@@ -65,7 +68,22 @@
 
     
     // we create a function that will subtract from our game.timeRemaining 
-  
+	
+		function buildGameOverScreen() {
+			const gameOverScreen = buildDom (`
+			<section>
+			 <h1>Game Over</h1>
+			 <button class="restart-button">Restart</button>
+			</section>
+			`)
+			 const restartButton = document.querySelector('.restart-button');
+			 restartButton.addEventListener('click', buildGameScreen);
+		 }
+		 buildSplashScreen();
+
+
+
+
     
 	  function buildGameOverScreen() {
 	   const gameOverScreen = buildDom (`

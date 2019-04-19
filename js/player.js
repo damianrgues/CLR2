@@ -42,30 +42,7 @@
 	  }
 	}
 	
-	document.addEventListener('keyup', movePlayer);
-	
-	function movePlayer(event){
-	  switch (event.keyCode) {
-	    case 37:
-	    game.Player.setXdirection(-1)
-	      break;
-	
-	    case 37:
-	    game.Player.setXdirection(-1)
-	      break;
-	
-	    case 37:
-	    game.Player.setXdirection(-1)
-	      break;
-	
-	    case 37:
-	    game.Player.setXdirection(-1)
-	      break;
-	
-	    default:
-	      break;
-	  }
-	} 
+	 
 	
 	
 	Player.prototype.setYDirection = function (newDirection) {
@@ -75,8 +52,7 @@
 	Player.prototype.setXDirection = function (newDirection) {
 	  this.xDirection = newDirection;
 	}
-	
-	
+
 	
 	Player.prototype.setLives = function () {
 	  this.lives--;
@@ -89,4 +65,17 @@
 	  const collisionBottom = this.y + this.height/2 > enemy.y - enemy.size/2;
 	
 	  return collisionTop && collisionLeft && collisionBottom && collisionRight; // will return either true or false 
-	}
+	
+	}	
+	
+	
+	Player.prototype.checkCollisionWithGoal = function (goal) {
+		const collisionRight = this.x + this.width/2 > goal.x - goal.width/2;
+		const collisionLeft = this.x - this.width/2 < goal.x + goal.width/2;
+		const collisionTop = this.y - this.height/2 < goal.y + goal.height/2;
+		const collisionBottom = this.y + this.height/2 > goal.y - goal.height/2;
+	
+		return collisionTop && collisionLeft && collisionBottom && collisionRight; // will return either true or false
+
+
+	};

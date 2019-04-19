@@ -3,9 +3,10 @@
 function Game (canvas) {
   this.player = null;
   this.enemies = [];
+  this.goal=[];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
-  this.timeRemaining=3;
+  this.timeRemaining=30;
   this.gameOver = false
 
 };
@@ -20,8 +21,11 @@ Game.prototype.startLoop = function () {
   setInterval(()=>{
     this.timeRemaining -= 1;
     const timerDisplay = document.getElementById('timer');
+   
     timerDisplay.innerHTML = this.timeRemaining;
   },1000)
+
+  this.createMeta();
 
   const loop = () => {
 
@@ -47,6 +51,9 @@ Game.prototype.startLoop = function () {
   window.requestAnimationFrame(loop);
 }
 
+
+
+
 Game.prototype.clearCanvas = function () {
   this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
 }
@@ -56,15 +63,24 @@ Game.prototype.updateCanvas = function () {
   this.enemies.forEach( (enemy) => { // since enemies is an array we need to call this method for each one of them
     enemy.update();
   })
-  
+  if (this.meta) {
+    this.meta.update();
+  }
 }
+
+
 
 Game.prototype.drawCanvas = function () {
   this.player.draw();
   this.enemies.forEach( (enemy) => { // since enemies is an array we need to call this method for each one of them
     enemy.draw();
   })
+  if (this.meta) {
+    this.meta.draw();
+  }
 }
+
+
 
 Game.prototype.checkCollisions = function () {
   this.enemies.forEach( (enemy, index) => {
@@ -83,6 +99,15 @@ Game.prototype.checkCollisions = function () {
   })
   //this.player.checkCollisionWithScreen();
   //this.enemies.checkInScreen(); // to delete enemy after they exit the screen
+}
+
+
+
+Game.prototype.createMeta = function () {
+  setTimeout(() => {
+    this.meta = new Goal(this.canvas);
+    console.log ("hay meta ");
+  }, 24000);
 }
 
 
