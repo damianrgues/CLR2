@@ -68,6 +68,18 @@
 	
 	}	
 	
+
+	// Player.prototype.checkCollisionWithTourists = function (tourists) {
+	//   const collisionRight = this.x + this.width/2 > tourists.x - tourists.size/2;
+	//   const collisionLeft = this.x - this.width/2 < tourists.x + tourists.size/2;
+	//   const collisionTop = this.y - this.height/2 < tourists.y + tourists.size/2;
+	//   const collisionBottom = this.y + this.height/2 > tourists.y - tourists.size/2;
+	
+	//   return collisionTop && collisionLeft && collisionBottom && collisionRight; // will return either true or false 
+	
+	// }	
+	
+
 	
 	Player.prototype.checkCollisionWithGoal = function (goal) {
 		const collisionRight = this.x + this.width/2 > goal.x - goal.width/2;

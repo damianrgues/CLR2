@@ -3,6 +3,7 @@
 function Game (canvas) {
   this.player = null;
   this.enemies = [];
+  // this.tourists=[];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
   this.timeRemaining=30;
@@ -30,7 +31,8 @@ Game.prototype.startLoop = function () {
 
   if (Math.random() > 0.99) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
-    this.enemies.push(new Enemy(this.canvas, randomNumber))
+    this.enemies.push(new Enemy(this.canvas, randomNumber));
+    // this.tourists.push(new Tourists(this.canvas,randomNumber));
   }
 
   this.clearCanvas();
@@ -62,6 +64,9 @@ Game.prototype.updateCanvas = function () {
   this.enemies.forEach( (enemy) => { // since enemies is an array we need to call this method for each one of them
     enemy.update();
   })
+  // this.tourists.forEach( (tourists) => { // since enemies is an array we need to call this method for each one of them
+  //   tourists.update();
+  // })
   if (this.meta) {
     this.meta.update();
   }
@@ -74,6 +79,10 @@ Game.prototype.drawCanvas = function () {
   this.enemies.forEach( (enemy) => { // since enemies is an array we need to call this method for each one of them
     enemy.draw();
   })
+  // this.tourists.forEach( (tourists) => { 
+  //   tourists.draw();
+  // })
+
   if (this.meta) {
     this.meta.draw();
   }
@@ -97,6 +106,27 @@ Game.prototype.checkCollisions = function () {
     }
   })
   
+  // this.tourists.forEach( (tourists, index) => {
+  //   const isCollidingTourits = this.player.checkCollisionWithTourists(tourists);
+  //   if (isCollidingTourits) {
+  //     this.timeRemaining -= 2;
+  //     this.tourists.splice(index, 1)
+  //     this.player.setLives();
+
+  //     console.log(this.player.lives)
+  //     if (this.player.lives === 0){
+  //       this.gameOver = true;
+  //       this.buildGameOverScreen();
+  //    }
+  //   }
+  // })
+
+
+
+
+
+
+
   if(this.meta){
     const isCollidingGoal = this.player.checkCollisionWithGoal(this.meta);
     if (isCollidingGoal) {
