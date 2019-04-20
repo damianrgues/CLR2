@@ -41,7 +41,7 @@
 	   const game = new Game(canvasElement);
 	   game.startLoop();
 		 game.setGameOverCallback(buildGameOverScreen);
-		 game.setWinCallback(buildGameWinScreen)
+		 game.setWinCallback(buildGameWinScreen);
 	
 	   document.addEventListener("keydown", function(event){
 	    switch (event.keyCode){

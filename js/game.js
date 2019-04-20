@@ -101,7 +101,8 @@ Game.prototype.checkCollisions = function () {
     const isCollidingGoal = this.player.checkCollisionWithGoal(this.meta);
     if (isCollidingGoal) {
       this.gameOver = true;
-      this.buildGameWinScreen() 
+      this.buildGameWinScreen();
+      
     }
   }
   
