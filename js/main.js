@@ -1,5 +1,8 @@
 'use strict';
 	
+
+
+
 	function main () {
 	  const mainElement = document.querySelector('main');
 	
@@ -17,7 +20,12 @@
 	  `)
 	  const startButton = document.querySelector('.start-button');
 	  startButton.addEventListener('click', buildGameScreen);
-	
+			
+		// let starMusic = new Audio();
+		// starMusic.src = "../music/index-music.mp3";
+		// starMusic.play();
+
+			
 	  }
 	
 	  function buildGameScreen() {
@@ -28,7 +36,13 @@
      <section class="game-container">
      <canvas id="canvas"></canvas>
 	   </section>
-	   `)
+		 `)
+		 
+
+		//  let music = new Audio();
+		//  music.src = "../music/game-music.mp3";
+		//  music.play();
+
 	   const gameContainer = document.querySelector('.game-container');
 	
 	   const width = gameContainer.offsetWidth; // sets width to parent width
@@ -79,6 +93,16 @@
 			`)
 			 const restartButton = document.querySelector('.restart-button');
 			 restartButton.addEventListener('click', buildGameScreen);
+
+			
+			//  let failMusic = new Audio();
+			// 	failMusic.src = "../music/gameover.mp3";
+			// 	failMusic.play();
+
+				
+					
+				
+
 		 }
 		 buildSplashScreen();
 

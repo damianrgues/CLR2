@@ -9,12 +9,35 @@ function Game (canvas) {
   this.timeRemaining=30;
   this.gameOver = false
 
+  this.gameSound = new Audio ("../music/game-music.mp3");
+  this.collisionSound = new Audio ("../music/boton-try-retry.mp3");
+  this.winSound = new Audio ("../music/index-music.mp3");
+  this.gameOverSound = new Audio ("../music/gameover.mp3");
+
+
+  
+  
+
+
+  // this.soundGame= document.createElement("audio");
+  // this.soundGame.src =("../music/game-music.mp3");
+  // this.soundGame.play();
+  // this.soundGame.volume=0.7;
+
+
+
 };
 
 
 
 
+
+
 Game.prototype.startLoop = function () {
+  this.gameSound.loop = true;
+  this.gameSound.play();
+
+
   this.player = new Player(this.canvas);
   const timerDisplay = document.getElementById('timer');
     timerDisplay.innerHTML = this.timeRemaining;
@@ -40,8 +63,11 @@ Game.prototype.startLoop = function () {
   this.drawCanvas();
   this.checkCollisions();
   if(this.timeRemaining < 1){
+    this.gameSound.pause();
+    this.gameOverSound.play();
     this.gameOver = true
     this.buildGameOverScreen();
+  
   }
   if (this.gameOver === false){
    window.requestAnimationFrame(loop);
@@ -97,10 +123,14 @@ Game.prototype.checkCollisions = function () {
       this.timeRemaining -= 2;
       this.enemies.splice(index, 1)
       this.player.setLives();
+      this.collisionSound.play();
 
       console.log(this.player.lives)
       if (this.player.lives === 0){
         this.gameOver = true;
+        this.gameSound.pause();
+        this.gameOverSound.play();
+
         this.buildGameOverScreen();
      }
     }
