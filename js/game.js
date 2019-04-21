@@ -9,12 +9,12 @@ function Game (canvas) {
   this.timeRemaining=30;
   this.gameOver = false
 
+  this.splashSound = new Audio ("../music/game-music.mp3");
   this.gameSound = new Audio ("../music/game-music.mp3");
   this.collisionSound = new Audio ("../music/boton-try-retry.mp3");
   this.winSound = new Audio ("../music/index-music.mp3");
   this.gameOverSound = new Audio ("../music/gameover.mp3");
-
-
+ 
   
   
 

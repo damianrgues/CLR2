@@ -29,6 +29,10 @@
 	  }
 	
 	  function buildGameScreen() {
+
+			
+
+			
 	    console.log('game screen');
 		 const gameScreen = buildDom(`
 		 
