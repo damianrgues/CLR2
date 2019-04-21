@@ -6,9 +6,11 @@ function Game (canvas) {
   this.tourists=[];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
-  this.timeRemaining=10;
+  this.timeRemaining=30;
   this.gameOver = false
   this.setIntervalId = null;
+  this.myImage = new Image()
+  this.myImage.src = '../img/-2_1.png'
 
   this.splashSound = new Audio ("../music/game-music.mp3");
   this.gameSound = new Audio ("../music/game-music.mp3");
@@ -63,7 +65,7 @@ Game.prototype.startLoop = function () {
 
   const loop = () => {
 
-  if (Math.random() > 0.995) { // setting the probability that a new enemy is created 
+  if (Math.random() > 0.98) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.enemies.push(new Enemy(this.canvas, randomNumber));
     console.log("prostis in action")
@@ -150,13 +152,18 @@ Game.prototype.drawCanvas = function () {
 
 Game.prototype.checkCollisions = function () {
   this.enemies.forEach( (enemy, index) => {
-    const isColliding = this.player.checkCollisionWithEnemy(enemy);
+    let isColliding = this.player.checkCollisionWithEnemy(enemy);
     if (isColliding) {
-      this.timeRemaining -= 2;
-      this.enemies.splice(index, 1)
-      this.player.setLives();
+      //this.timeRemaining -= 2;
+      enemy.image.src = '../img/-2.png'
+      isColliding = false
+      setTimeout(() => {
+       // this.enemies.splice(index, 1)
+      }, 1500)
+      //this.player.setLives();
       this.collisionSound.play();
-
+      console.log('dfdsfds')
+      //this.ctx.drawImage(this.myImage, this.player.x, this.player.y, 30, 30 )
 
       console.log(this.player.lives)
       if (this.player.lives === 0){
@@ -175,7 +182,7 @@ Game.prototype.checkCollisions = function () {
     if (isCollidingTourits) {
       this.timeRemaining -= 2;
       this.tourists.splice(index, 1)
-      this.player.setLives();
+     //this.player.setLives();
 
       console.log(this.player.lives)
       if (this.player.lives === 0){
