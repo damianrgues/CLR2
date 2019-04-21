@@ -1,7 +1,7 @@
 'use strict';
 	
 	function Player (canvas) {
-	  this.lives = 10;
+	  this.lives = 100;
 		this.height = 141;
 		this.width = 60;
 	  this.canvas = canvas;
@@ -54,9 +54,9 @@
 	}
 
 	
-	Player.prototype.setLives = function () {
-	  this.lives--;
-	}
+	// Player.prototype.setLives = function () {
+	//   this.lives--;
+	// }
 	
 	Player.prototype.checkCollisionWithEnemy = function (enemy) {
 	  const collisionRight = this.x + this.width/2 > enemy.x - enemy.size/2;

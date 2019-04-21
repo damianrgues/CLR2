@@ -16,8 +16,8 @@ function Game (canvas) {
   this.splashSound = new Audio ("../music/game-music.mp3");
   this.gameSound = new Audio ("../music/game-music.mp3");
   this.collisionSound = new Audio ("../music/boton-try-retry.mp3");
-  this.collisionSoundMimos = new Audio ("..");
-  this.collisionSoundTourists = new Audio ("..");
+  this.collisionSoundMimos = new Audio ("../music/collision_mimos.mp3");
+  this.collisionSoundTourists = new Audio ("../music/tourist_collision.mp3");
 
   this.winSound = new Audio ("../music/index-music.mp3");
   this.gameOverSound = new Audio ("../music/gameover_good.mp3");
@@ -73,7 +73,7 @@ Game.prototype.startLoop = function () {
 
     
 
-  if (Math.random() > 0.993) { // setting the probability that a new enemy is created 
+  if (Math.random() > 0.996) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.enemies.push(new Enemy(this.canvas, randomNumber));
     console.log("prostis in action")
@@ -84,14 +84,14 @@ Game.prototype.startLoop = function () {
  
 
 
-  if (Math.random() > 0.993) { // setting the probability that a new enemy is created 
+  if (Math.random() > 0.996) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.tourists.push(new Tourists(this.canvas,randomNumber));
     console.log("tourists")
   }
 
 
-  if (Math.random() > 0.993) { // setting the probability that a new enemy is created 
+  if (Math.random() > 0.996) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.mimos.push(new Mimos(this.canvas,randomNumber));
     console.log("mimos")
@@ -178,37 +178,49 @@ Game.prototype.drawCanvas = function () {
 
 Game.prototype.checkCollisions = function () {
   this.enemies.forEach( (enemy, index) => {
-    let isColliding = this.player.checkCollisionWithEnemy(enemy);
-    if (isColliding) {
-      //this.timeRemaining -= 2;
-      enemy.image.src = '../img/-2.png'
-      isColliding = false
+    let isCollidingEnemy = this.player.checkCollisionWithEnemy(enemy);
+    if (isCollidingEnemy) {
+      
+      this.timeRemaining -= 3;
+      enemy.image.src = '../img/-3.png';
+      enemy.x += 100;
+      
       setTimeout(() => {
-       // this.enemies.splice(index, 1)
-      }, 1500)
-      //this.player.setLives();
+      this.enemies.splice(index, 1)
+      }, 100)
       this.collisionSound.play();
       console.log('dfdsfds')
+
+      //isColliding = false;
       //this.ctx.drawImage(this.myImage, this.player.x, this.player.y, 30, 30 )
 
-      console.log(this.player.lives)
-      if (this.player.lives === 0){
-        this.gameOver = true;
-        this.gameSound.pause();
-        this.gameOverSound.play();
+    //   console.log(this.player.lives)
+    //   if (this.player.lives === 0){
+    //     this.gameOver = true;
+    //     this.gameSound.pause();
+    //     this.gameOverSound.play();
 
 
 
-        this.buildGameOverScreen();
-     }
+    //     this.buildGameOverScreen();
+    //  }
     }
   })
   
   this.tourists.forEach( (tourists, index) => {
     const isCollidingTourits = this.player.checkCollisionWithTourists(tourists);
     if (isCollidingTourits) {
-      this.timeRemaining -= 2;
+      this.collisionSoundTourists.play();
+
+      tourists.image.src = '../img/-2.png';
+      tourists.x += 100;
+      
+      setTimeout(() => {
       this.tourists.splice(index, 1)
+      }, 100)
+
+      this.timeRemaining -= 2;
+      // this.tourists.splice(index, 1)
      //this.player.setLives();
 
       console.log(this.player.lives)
@@ -224,8 +236,21 @@ Game.prototype.checkCollisions = function () {
   this.mimos.forEach( (mimos, index) => {
     const isCollidingMimos = this.player.checkCollisionWithMimos(mimos);
     if (isCollidingMimos) {
-      this.timeRemaining -= 2;
-      this.mimos.splice(index, 1)
+      this.collisionSoundMimos.play();
+
+
+      mimos.image.src = '../img/-1.png';
+      mimos.x += 100;
+
+      setTimeout(() => {
+        this.mimos.splice(index, 1)
+        }, 100)
+
+      this.timeRemaining -= 1;
+      
+      
+     
+      //this.mimos.splice(index, 1)
      //this.player.setLives();
 
       console.log(this.player.lives)
