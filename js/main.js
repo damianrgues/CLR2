@@ -89,6 +89,9 @@
     // we create a function that will subtract from our game.timeRemaining 
 	
 		function buildGameOverScreen() {
+
+			
+
 			const gameOverScreen = buildDom (`
 			<section>
 			 <h1>Game Over</h1>

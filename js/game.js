@@ -3,11 +3,12 @@
 function Game (canvas) {
   this.player = null;
   this.enemies = [];
-  // this.tourists=[];
+  this.tourists=[];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
-  this.timeRemaining=30;
+  this.timeRemaining=10;
   this.gameOver = false
+  this.setIntervalId = null;
 
   this.splashSound = new Audio ("../music/game-music.mp3");
   this.gameSound = new Audio ("../music/game-music.mp3");
@@ -38,38 +39,65 @@ Game.prototype.startLoop = function () {
   this.gameSound.play();
 
   this.background = new BackgroundImg(this.canvas);
-
+  const timerDisplay = document.getElementById('timer');
 
   this.player = new Player(this.canvas);
-  const timerDisplay = document.getElementById('timer');
+ 
     timerDisplay.innerHTML = this.timeRemaining;
-  setInterval(()=>{
+   this.setIntervalId = setInterval(()=>{
+    
     this.timeRemaining -= 1;
-    const timerDisplay = document.getElementById('timer');
+    
    
     timerDisplay.innerHTML = this.timeRemaining;
+    if (this.timeRemaining === 0) {
+
+      this.buildGameOverScreen();
+      console.log ("gameover screem")
+      clearInterval(this.setIntervalId);
+      
+     }
   },1000)
 
   this.createMeta();
 
   const loop = () => {
 
-  if (Math.random() > 0.99) { // setting the probability that a new enemy is created 
+  if (Math.random() > 0.995) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.enemies.push(new Enemy(this.canvas, randomNumber));
-    // this.tourists.push(new Tourists(this.canvas,randomNumber));
+    console.log("prostis in action")
+    
+    
+    }
+
+ 
+
+
+  if (Math.random() > 0.995) { // setting the probability that a new enemy is created 
+    const randomNumber = Math.random() * this.canvas.height;
+    this.tourists.push(new Tourists(this.canvas,randomNumber));
+    console.log("tourists")
   }
+
+
+
+
+
+
 
   this.clearCanvas();
   this.updateCanvas();
   this.drawCanvas();
   this.checkCollisions();
   if(this.timeRemaining < 1){
+    
     this.gameSound.pause();
     this.gameOverSound.play();
     this.gameOver = true
     this.buildGameOverScreen();
-  
+    clearTimeout(this.timeRemaining);
+   
   }
   if (this.gameOver === false){
    window.requestAnimationFrame(loop);
@@ -93,9 +121,9 @@ Game.prototype.updateCanvas = function () {
   this.enemies.forEach( (enemy) => { // since enemies is an array we need to call this method for each one of them
     enemy.update();
   })
-  // this.tourists.forEach( (tourists) => { // since enemies is an array we need to call this method for each one of them
-  //   tourists.update();
-  // })
+  this.tourists.forEach( (tourists) => { // since enemies is an array we need to call this method for each one of them
+    tourists.update();
+  })
   if (this.meta) {
     this.meta.update();
   }
@@ -109,9 +137,9 @@ Game.prototype.drawCanvas = function () {
   this.enemies.forEach( (enemy) => { // since enemies is an array we need to call this method for each one of them
     enemy.draw();
   })
-  // this.tourists.forEach( (tourists) => { 
-  //   tourists.draw();
-  // })
+  this.tourists.forEach( (tourists) => { 
+    tourists.draw();
+  })
 
   if (this.meta) {
     this.meta.draw();
@@ -129,31 +157,33 @@ Game.prototype.checkCollisions = function () {
       this.player.setLives();
       this.collisionSound.play();
 
+
       console.log(this.player.lives)
       if (this.player.lives === 0){
         this.gameOver = true;
         this.gameSound.pause();
         this.gameOverSound.play();
 
+
         this.buildGameOverScreen();
      }
     }
   })
   
-  // this.tourists.forEach( (tourists, index) => {
-  //   const isCollidingTourits = this.player.checkCollisionWithTourists(tourists);
-  //   if (isCollidingTourits) {
-  //     this.timeRemaining -= 2;
-  //     this.tourists.splice(index, 1)
-  //     this.player.setLives();
+  this.tourists.forEach( (tourists, index) => {
+    const isCollidingTourits = this.player.checkCollisionWithTourists(tourists);
+    if (isCollidingTourits) {
+      this.timeRemaining -= 2;
+      this.tourists.splice(index, 1)
+      this.player.setLives();
 
-  //     console.log(this.player.lives)
-  //     if (this.player.lives === 0){
-  //       this.gameOver = true;
-  //       this.buildGameOverScreen();
-  //    }
-  //   }
-  // })
+      console.log(this.player.lives)
+      if (this.player.lives === 0){
+        this.gameOver = true;
+        this.buildGameOverScreen();
+     }
+    }
+  })
 
 
 
