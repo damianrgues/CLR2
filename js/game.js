@@ -17,7 +17,7 @@ function Game (canvas) {
  
   
   
-
+  
 
   // this.soundGame= document.createElement("audio");
   // this.soundGame.src =("../music/game-music.mp3");
@@ -167,6 +167,7 @@ Game.prototype.checkCollisions = function () {
       this.gameSound.pause();
       this.gameOver = true;
       this.buildGameWinScreen();
+      this.winSound.play();
       
     }
   }
