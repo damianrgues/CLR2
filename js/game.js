@@ -37,6 +37,8 @@ Game.prototype.startLoop = function () {
   this.gameSound.loop = true;
   this.gameSound.play();
 
+  this.background = new BackgroundImg(this.canvas);
+
 
   this.player = new Player(this.canvas);
   const timerDisplay = document.getElementById('timer');
@@ -86,6 +88,7 @@ Game.prototype.clearCanvas = function () {
 }
 
 Game.prototype.updateCanvas = function () {
+  this.background.move();
   this.player.update();
   this.enemies.forEach( (enemy) => { // since enemies is an array we need to call this method for each one of them
     enemy.update();
@@ -101,6 +104,7 @@ Game.prototype.updateCanvas = function () {
 
 
 Game.prototype.drawCanvas = function () {
+  this.background.draw();
   this.player.draw();
   this.enemies.forEach( (enemy) => { // since enemies is an array we need to call this method for each one of them
     enemy.draw();
@@ -160,6 +164,7 @@ Game.prototype.checkCollisions = function () {
   if(this.meta){
     const isCollidingGoal = this.player.checkCollisionWithGoal(this.meta);
     if (isCollidingGoal) {
+      this.gameSound.pause();
       this.gameOver = true;
       this.buildGameWinScreen();
       
