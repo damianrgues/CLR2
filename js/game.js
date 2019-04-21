@@ -4,6 +4,7 @@ function Game (canvas) {
   this.player = null;
   this.enemies = [];
   this.tourists=[];
+  this.mimos=[];
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
   this.timeRemaining=30;
@@ -15,6 +16,9 @@ function Game (canvas) {
   this.splashSound = new Audio ("../music/game-music.mp3");
   this.gameSound = new Audio ("../music/game-music.mp3");
   this.collisionSound = new Audio ("../music/boton-try-retry.mp3");
+  this.collisionSoundMimos = new Audio ("..");
+  this.collisionSoundTourists = new Audio ("..");
+
   this.winSound = new Audio ("../music/index-music.mp3");
   this.gameOverSound = new Audio ("../music/gameover_good.mp3");
  
@@ -39,6 +43,8 @@ function Game (canvas) {
 Game.prototype.startLoop = function () {
   this.gameSound.loop = true;
   this.gameSound.play();
+  this.winSound.pause();
+  this.gameOverSound.pause();
 
   this.background = new BackgroundImg(this.canvas);
   const timerDisplay = document.getElementById('timer');
@@ -65,7 +71,9 @@ Game.prototype.startLoop = function () {
 
   const loop = () => {
 
-  if (Math.random() > 0.98) { // setting the probability that a new enemy is created 
+    
+
+  if (Math.random() > 0.993) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.enemies.push(new Enemy(this.canvas, randomNumber));
     console.log("prostis in action")
@@ -76,23 +84,30 @@ Game.prototype.startLoop = function () {
  
 
 
-  if (Math.random() > 0.995) { // setting the probability that a new enemy is created 
+  if (Math.random() > 0.993) { // setting the probability that a new enemy is created 
     const randomNumber = Math.random() * this.canvas.height;
     this.tourists.push(new Tourists(this.canvas,randomNumber));
     console.log("tourists")
   }
 
 
+  if (Math.random() > 0.993) { // setting the probability that a new enemy is created 
+    const randomNumber = Math.random() * this.canvas.height;
+    this.mimos.push(new Mimos(this.canvas,randomNumber));
+    console.log("mimos")
+  }
 
 
+  
 
-
+  
 
   this.clearCanvas();
   this.updateCanvas();
   this.drawCanvas();
   this.checkCollisions();
   if(this.timeRemaining < 1){
+    
     
     this.gameSound.pause();
     this.gameOverSound.play();
@@ -101,7 +116,9 @@ Game.prototype.startLoop = function () {
     clearTimeout(this.timeRemaining);
    
   }
+
   if (this.gameOver === false){
+    
    window.requestAnimationFrame(loop);
   }
   //console.log(this.player.direction);
@@ -126,6 +143,11 @@ Game.prototype.updateCanvas = function () {
   this.tourists.forEach( (tourists) => { // since enemies is an array we need to call this method for each one of them
     tourists.update();
   })
+
+  this.mimos.forEach( (mimos) => { // since enemies is an array we need to call this method for each one of them
+    mimos.update();
+  })
+
   if (this.meta) {
     this.meta.update();
   }
@@ -141,6 +163,10 @@ Game.prototype.drawCanvas = function () {
   })
   this.tourists.forEach( (tourists) => { 
     tourists.draw();
+  })
+
+  this.mimos.forEach( (mimos) => { 
+    mimos.draw();
   })
 
   if (this.meta) {
@@ -172,6 +198,7 @@ Game.prototype.checkCollisions = function () {
         this.gameOverSound.play();
 
 
+
         this.buildGameOverScreen();
      }
     }
@@ -194,6 +221,22 @@ Game.prototype.checkCollisions = function () {
 
 
 
+  this.mimos.forEach( (mimos, index) => {
+    const isCollidingMimos = this.player.checkCollisionWithMimos(mimos);
+    if (isCollidingMimos) {
+      this.timeRemaining -= 2;
+      this.mimos.splice(index, 1)
+     //this.player.setLives();
+
+      console.log(this.player.lives)
+      if (this.player.lives === 0){
+        this.gameOver = true;
+        this.buildGameOverScreen();
+     }
+    }
+  })
+
+
 
 
 
@@ -205,6 +248,8 @@ Game.prototype.checkCollisions = function () {
       this.gameOver = true;
       this.buildGameWinScreen();
       this.winSound.play();
+      clearInterval(this.setIntervalId);
+
       
     }
   }

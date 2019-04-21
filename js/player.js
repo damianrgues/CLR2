@@ -80,6 +80,17 @@
 	}	
 	
 
+	Player.prototype.checkCollisionWithMimos = function (mimos) {
+	  const collisionRight = this.x + this.width/2 > mimos.x - mimos.size/2;
+	  const collisionLeft = this.x - this.width/2 < mimos.x + mimos.size/2;
+	  const collisionTop = this.y - this.height/2 < mimos.y + mimos.size/2;
+	  const collisionBottom = this.y + this.height/2 > mimos.y - mimos.size/2;
+	
+	  return collisionTop && collisionLeft && collisionBottom && collisionRight; // will return either true or false 
+	
+	}	
+
+
 	
 	Player.prototype.checkCollisionWithGoal = function (goal) {
 		const collisionRight = this.x + this.width/2 > goal.x - goal.width/2;
