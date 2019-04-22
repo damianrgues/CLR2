@@ -8,7 +8,7 @@ function Goal (canvas) {
     this.x = this.canvas.width - 100;
     this.y = this.height/2;
     this.image = new Image();
-    this.image.src = "../img/metaline.png";
+    this.image.src = "./img/metaline.png";
   }
   
   Goal.prototype.draw = function () {

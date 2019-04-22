@@ -3,7 +3,7 @@
 //Constructor for the moving background image
 function BackgroundImg (canvas){
   this.img = new Image();
-  this.img.src = "../img/background_bruto_deffff.png";
+  this.img.src = "./img/background_bruto_deffff.png";
   this.speed = -2;
   this.canvas = canvas;
   this.ctx = this.canvas.getContext("2d");

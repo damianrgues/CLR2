@@ -11,16 +11,16 @@ function Game (canvas) {
   this.gameOver = false
   this.setIntervalId = null;
   this.myImage = new Image()
-  this.myImage.src = '../img/-2_1.png'
+  this.myImage.src = './img/-2_1.png'
 
-  this.splashSound = new Audio ("../music/game-music.mp3");
-  this.gameSound = new Audio ("../music/game-music.mp3");
-  this.collisionSound = new Audio ("../music/boton-try-retry.mp3");
-  this.collisionSoundMimos = new Audio ("../music/collision_mimos.mp3");
-  this.collisionSoundTourists = new Audio ("../music/tourist_collision.mp3");
+  this.splashSound = new Audio ("./music/game-music.mp3");
+  this.gameSound = new Audio ("./music/game-music.mp3");
+  this.collisionSound = new Audio ("./music/boton-try-retry.mp3");
+  this.collisionSoundMimos = new Audio ("./music/collision_mimos.mp3");
+  this.collisionSoundTourists = new Audio ("./music/tourist_collision.mp3");
 
-  this.winSound = new Audio ("../music/index-music.mp3");
-  this.gameOverSound = new Audio ("../music/gameover_good.mp3");
+  this.winSound = new Audio ("./music/index-music.mp3");
+  this.gameOverSound = new Audio ("./music/gameover_good.mp3");
  
   
   
@@ -182,7 +182,7 @@ Game.prototype.checkCollisions = function () {
     if (isCollidingEnemy) {
       
       this.timeRemaining -= 3;
-      enemy.image.src = '../img/-3.png';
+      enemy.image.src = './img/-3.png';
       enemy.x += 100;
       
       setTimeout(() => {
@@ -212,7 +212,7 @@ Game.prototype.checkCollisions = function () {
     if (isCollidingTourits) {
       this.collisionSoundTourists.play();
 
-      tourists.image.src = '../img/-2.png';
+      tourists.image.src = './img/-2.png';
       tourists.x += 100;
       
       setTimeout(() => {
@@ -239,7 +239,7 @@ Game.prototype.checkCollisions = function () {
       this.collisionSoundMimos.play();
 
 
-      mimos.image.src = '../img/-1.png';
+      mimos.image.src = './img/-1.png';
       mimos.x += 100;
 
       setTimeout(() => {

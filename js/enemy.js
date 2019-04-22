@@ -7,7 +7,7 @@ function Enemy (canvas, y) {
   this.x = this.canvas.width - this.size/2;
   this.y = y;
   this.image = new Image();
-	this.image.src = "../img/prosti.png";
+	this.image.src = "./img/prosti.png";
 }
 
 Enemy.prototype.draw = function () {

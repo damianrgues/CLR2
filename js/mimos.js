@@ -7,7 +7,7 @@ function Mimos (canvas, y) {
     this.x = this.canvas.width - this.size/2;
     this.y = y/2;
     this.image = new Image();
-    this.image.src = "../img/mimos.png";
+    this.image.src = "./img/mimos.png";
   }
   
   Mimos.prototype.draw = function () {
